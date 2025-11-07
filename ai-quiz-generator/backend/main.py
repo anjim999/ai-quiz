@@ -27,12 +27,11 @@ origins = [
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=False,  # ❗ Must be False if using wildcard later
+    allow_origins=["*"],  # ✅ Allow any origin
+    allow_credentials=False,  # ⚠️ Should be False when using "*"
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 Base.metadata.create_all(bind=engine)
 
 def get_db():
