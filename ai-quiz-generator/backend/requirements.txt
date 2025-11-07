@@ -1,0 +1,20 @@
+fastapi==0.115.5
+uvicorn[standard]==0.32.0
+
+# Database
+sqlalchemy==2.0.35
+psycopg2-binary==2.9.11
+pymysql==1.1.1
+
+# Env + HTTP + Scraping
+python-dotenv==1.0.1
+requests==2.32.3
+beautifulsoup4==4.12.3
+
+# Langchain & Gemini (compatible versions)
+langchain==0.3.7
+langchain-core==0.3.15
+langchain-community==0.3.5
+langchain-google-genai==2.0.5
+
+pydantic==2.9.2

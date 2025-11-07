@@ -1,0 +1,3 @@
+Given the article text, suggest 3–8 precise related Wikipedia article TITLES for further reading.
+Avoid duplicates and keep titles focused.
+Return a JSON list of strings.

@@ -1,0 +1,17 @@
+{
+  "url": "https://en.wikipedia.org/wiki/Alan_Turing",
+  "title": "Alan Turing",
+  "summary": "Sample file: replace with real API output after you run /generate_quiz.",
+  "key_entities": { "people": ["Alan Turing"], "organizations": [], "locations": [] },
+  "sections": ["Early life", "Career", "World War II", "Legacy"],
+  "quiz": [
+    {
+      "question": "Placeholder question",
+      "options": ["A", "B", "C", "D"],
+      "answer": "A",
+      "difficulty": "easy",
+      "explanation": "Explain why."
+    }
+  ],
+  "related_topics": ["Cryptography", "Enigma machine", "Computer science history"]
+}
