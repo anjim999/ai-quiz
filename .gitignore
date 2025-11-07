@@ -1,3 +1,4 @@
-# Ignore Python virtual env
 venv/
 .venv/
+*.pyc
+__pycache__/
