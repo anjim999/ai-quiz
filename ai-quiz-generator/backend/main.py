@@ -22,16 +22,17 @@ origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "https://ai-quiz-generator-6y7k.onrender.com",  # Backend Render URL
-    "https://ai-quiz-generator-jade.vercel.app",           # ✅ Replace with your Vercel URL
-]       
+    "https://ai-quiz-client.vercel.app",           # ✅ Replace with your Vercel URL
+]
+
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # ✅ Allow any origin
-    allow_credentials=False,  # ⚠️ Should be False when using "*"
+    allow_origins=["*"],   # allow all domains
+    allow_credentials=False,  # must be false when using "*" in allow_origins
     allow_methods=["*"],
     allow_headers=["*"],
-)
+)   
 Base.metadata.create_all(bind=engine)
 
 def get_db():
