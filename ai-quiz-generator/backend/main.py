@@ -17,11 +17,18 @@ load_dotenv()
 
 app = FastAPI(title="AI Wiki Quiz Generator", version="1.0.0")
 
-origins = [o.strip() for o in os.getenv("CORS_ORIGINS", "*").split(",")]
+# ✅ Allowed frontend URLs
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "https://ai-quiz-generator-6y7k.onrender.com",  # Backend Render URL
+    "https://ai-quiz-generator-jade.vercel.app/",           # ✅ Replace with your Vercel URL
+]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    allow_credentials=True,
+    allow_credentials=False,  # ❗ Must be False if using wildcard later
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -42,11 +49,9 @@ def health():
 @app.post("/generate_quiz")
 def generate_quiz(req: GenerateRequest, db: Session = Depends(get_db)):
     url = str(req.url)
-
     if not is_wikipedia_url(url):
         raise HTTPException(status_code=400, detail="Only Wikipedia article URLs are accepted (HTML scraping only).")
 
-    # Cache: return existing if present and not force_refresh
     use_cache = os.getenv("ENABLE_URL_CACHE", "true").lower() == "true"
     if use_cache and not req.force_refresh:
         existing = db.query(Quiz).filter(Quiz.url == url).one_or_none()
@@ -55,7 +60,6 @@ def generate_quiz(req: GenerateRequest, db: Session = Depends(get_db)):
             data["id"] = existing.id
             return data
 
-    # Scrape
     try:
         title, cleaned_text, sections, raw_html = scrape_wikipedia(url)
     except Exception as e:
@@ -64,14 +68,13 @@ def generate_quiz(req: GenerateRequest, db: Session = Depends(get_db)):
     if not cleaned_text or len(cleaned_text) < 200:
         raise HTTPException(status_code=422, detail="Article content seems too short or could not be parsed.")
 
-    # Generate with LLM (or fallback)
     try:
         payload = generate_quiz_payload(url=url, title=title, article_text=cleaned_text, sections=sections)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"LLM generation error: {e}")
 
     payload["sections"] = payload.get("sections") or sections
-    # Persist
+
     record = db.query(Quiz).filter(Quiz.url == url).one_or_none()
     if record is None:
         record = Quiz(
