@@ -22,8 +22,8 @@ origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "https://ai-quiz-generator-6y7k.onrender.com",  # Backend Render URL
-    "https://ai-quiz-generator-jade.vercel.app/",           # ✅ Replace with your Vercel URL
-]
+    "https://ai-quiz-generator-jade.vercel.app",           # ✅ Replace with your Vercel URL
+]       
 
 app.add_middleware(
     CORSMiddleware,
