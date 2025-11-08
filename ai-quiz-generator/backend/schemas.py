@@ -20,7 +20,7 @@ class QuizOutput(BaseModel):
     summary: str
     key_entities: KeyEntities
     sections: List[str]
-    quiz: List[QuizItem] = Field(..., min_items=5, max_items=10)
+    quiz: List[QuizItem] = Field(..., min_items=5, max_items=50)
     related_topics: List[str] = Field(..., min_items=3)
 
 class GenerateRequest(BaseModel):

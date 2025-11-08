@@ -1,12 +1,12 @@
-const BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const BASE = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 
-export async function generateQuiz(url, forceRefresh = false) {
-  const res = await fetch(`${BASE}/generate_quiz`, {
+export async function generateQuiz(url, forceRefresh = false, count = 10) {
+  const res = await fetch(`${BASE}/generate_quiz?count=${count}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ url, force_refresh: forceRefresh }),
   });
-  if (!res.ok) throw new Error((await res.json()).detail || "Failed to generate quiz");
+  if (!res.ok) throw new Error("Failed to generate quiz");
   return res.json();
 }
 

@@ -10,7 +10,7 @@ export default function QuizDisplay({ data, takeMode = false }) {
   }, [submitted, answers, data]);
 
   if (!data) return null;
-
+  console.log("QuizDisplay data:", data);
   return (
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-2">
@@ -70,12 +70,7 @@ export default function QuizDisplay({ data, takeMode = false }) {
                 })}
               </div>
 
-              {!takeMode && (
-                <div className="mt-2 text-sm">
-                  <p><span className="font-semibold">Answer:</span> {q.answer}</p>
-                  <p className="text-gray-600"><span className="font-semibold">Why:</span> {q.explanation}</p>
-                </div>
-              )}
+              
 
               {takeMode && submitted && (
                 <div className="mt-2 text-sm">

@@ -3,6 +3,7 @@ import { fetchHistory, fetchQuizById } from "../services/api";
 import HistoryTable from "../components/HistoryTable";
 import Modal from "../components/Modal";
 import QuizDisplay from "../components/QuizDisplay";
+import PDFExportButton from "../components/PDFExportButton";
 
 export default function HistoryTab() {
   const [rows, setRows] = useState([]);
@@ -41,8 +42,20 @@ export default function HistoryTab() {
       </div>
       {error && <p className="text-red-600 text-sm">{error}</p>}
       <HistoryTable items={rows} onDetails={handleDetails} />
+
       <Modal open={open} onClose={() => setOpen(false)} title={selected?.title || "Details"}>
-        {selected ? <QuizDisplay data={selected} /> : <p>Loading…</p>}
+        {selected ? (
+          <>
+            <div className="mb-4">
+              <PDFExportButton
+                quizId={selected.id}
+                count={selected.quiz?.length || 10}
+                durationStr={`${Math.ceil((selected.quiz?.length || 10))} min`}
+              />
+            </div>
+            <QuizDisplay data={selected} />
+          </>
+        ) : <p>Loading…</p>}
       </Modal>
     </div>
   );
