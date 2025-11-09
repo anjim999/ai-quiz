@@ -1,3 +1,8 @@
+ changed
+ 
+‎ai-quiz-generator/frontend/vercel.json‎
+Original file line number	Diff line number	Diff line change
+@@ -1,15 +1,5 @@
 {
   "version": 2,
   "builds": [
@@ -10,10 +15,4 @@
     {
       "src": "/api/(.*)",
       "dest": "https://ai-quiz-generator-1-nyds.onrender.com/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
     }
-  ]
-}
